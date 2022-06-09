@@ -1,0 +1,231 @@
+
+
+<template>
+
+<!-- NOTE!! THIS PAGE WILL BE DEPRECATED  -->
+
+  <transition name="auth" mode="out-in">
+    <div v-if="$auth.loggedIn">
+      <div class="card shadow rounded-lg">
+        <div class="card-header">Dashboard</div>
+        <div class="card-body">
+          <div class="lead">
+            Welcome Back44
+            <em>
+              {{ $auth.user.firstName }}
+            </em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-else class="col-12 col-md-8">
+      <div class="card shadow rounded-lg py-5">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <logo-vue class="col-xl-6" />
+
+            <login-vue class="col-xl-6" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+
+<!-- see clipboard.html for the code that goes here... -->
+
+
+
+
+<div v-if="$auth.loggedIn">
+    <div class="card shadow rounded-lg">
+        <div class="card-header">Credits</div>
+
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th
+                    class="
+                      text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                    "
+                  >
+                    Id
+                  </th>
+                  <th
+                    class="
+                      text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                      ps-2
+                    "
+                  >
+                    order Number
+                  </th>
+                  <th
+                    class="
+                      text-center text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                    "
+                  >
+                    Refund Amount
+                  </th>
+                  <th
+                    class="
+                      text-center text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                    "
+                  >
+                    Merchant Type
+                  </th>
+                  <th
+                    class="
+                      text-center text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                    "
+                  >
+                    STATUS
+                  </th>
+                  <th
+                    class="
+                      text-center text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                    "
+                  >
+                    submit time
+                  </th>
+                  <th
+                    class="
+                      text-center text-uppercase text-secondary text-xxs
+                      font-weight-bolder
+                      opacity-7
+                    "
+                  >
+                    message
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                <tr v-for="credit in credits" :key="credit.id">
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ credit.id }}</h6>
+
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{ credit.orderNumber }}</h6>
+            
+                    </div>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <div v-if="credit.state != 'REFUNDED'">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">-</h6>
+
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">${{ credit.totalAmount }}</h6>
+
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="align-middle text-center">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{ credit.merchantType }}</h6>
+
+                    </div>
+                  </td>
+                  <!-- button -->
+              
+                  <td class="align-middle text-center text-sm">
+                        <div v-if="credit.state == 'REFUNDED'">
+                            <vsud-badge color="success" variant="gradient" size="sm"
+                            >{{ credit.state }}</vsud-badge
+                            >
+                        </div>
+
+
+          
+                        <div v-else-if="credit.state == 'VOIDED'">
+                            <vsud-badge color="primary" variant="gradient" size="sm" active="false"
+                            >{{ credit.state }}</vsud-badge
+                            >
+                        </div>
+                        <div v-else-if="credit.state == 'REVERSED'">
+                            <vsud-badge color="warning" variant="gradient" size="sm"
+                            >{{ credit.state }}</vsud-badge
+                            >
+                        </div>
+                        <div v-else-if="credit.state == '.'">
+                            <vsud-badge color="secondary" variant="gradient" size="sm"
+                            >{{ credit.state }}</vsud-badge
+                            >
+                        </div>
+                        
+                      </td>
+                  <td class="align-middle text-center">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{ credit.submitTime }}</h6>
+        
+                    </div>
+                  </td>
+                  <td class="align-middle text-center">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{ credit.message }}</h6>
+
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+    </div>
+</div>
+
+</template>
+
+<script setup>
+import { storeToRefs } from "pinia";
+import LogoVue from "../components/Logo.vue";
+import LoginVue from "../components/Forms/Login.vue";
+import { onMounted } from "@vue/runtime-core";
+import { useCreditStore } from "../store/credits";
+import VsudBadge from "../components/VsudBadge.vue";
+
+document.title = "Vite with Vue and Pinia";
+
+// retrieve the fetchCredits action
+const { fetchCredits } = useCreditStore(); 
+fetchCredits();
+
+const { credits } = storeToRefs(useCreditStore()); // retrieve the store
+</script>
+
+<style>
+.auth-enter-active,
+.auth-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.auth-enter-from,
+.auth-leave-to {
+  opacity: 0;
+}
+</style>

@@ -1,0 +1,125 @@
+<div class="mt-4 row">
+  <div class="mb-4 col-lg-5 mb-lg-0">
+    <div class="card z-index-2">
+      <div class="p-3 card-body">
+        <reports-bar-chart
+          id="chart-bar"
+          title="active Users"
+          description="(<strong>+23%</strong>) than last week"
+          :chart="{
+            labels: [
+              'Apr',
+              'May',
+              'Jun',
+              'Jul',
+              'Aug',
+              'Sep',
+              'Oct',
+              'Nov',
+              'Dec',
+            ],
+            datasets: {
+              label: 'Sales',
+              data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+            },
+          }"
+          :items="[
+            {
+              icon: {
+                color: 'primary',
+                component: faUsers,
+              },
+              label: 'users',
+              progress: { content: '37K', percentage: 60 },
+            },
+            {
+              icon: { color: 'info', component: faHandPointer },
+              label: 'clicks',
+              progress: { content: '2m', percentage: 90 },
+            },
+            {
+              icon: { color: 'warning', component: faCreditCard },
+              label: 'Sales',
+              progress: { content: '435$', percentage: 30 },
+            },
+            {
+              icon: { color: 'danger', component: faScrewdriverWrench },
+              label: 'Items',
+              progress: { content: '43', percentage: 50 },
+            },
+          ]"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <!-- line chart -->
+    <div class="card z-index-2">
+      <gradient-line-chart
+        id="chart-line"
+        title="Gradient Line Chart"
+        description="<i class='fa fa-arrow-up text-success'></i>
+  <span class='font-weight-bold'>4% more</span> in 2021"
+        :chart="{
+          labels: [
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec',
+          ],
+          datasets: [
+            {
+              label: 'Mobile Apps',
+              data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+            },
+            {
+              label: 'Websites',
+              data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+            },
+          ],
+        }"
+      />
+    </div>
+  </div>
+</div>
+
+
+// <script
+// import Navbar from "../examples/PageLayout/Navbar.vue";
+// import AppFooter from "../examples/PageLayout/Footer.vue";
+// import VsudInput from "../components/VsudInput.vue";
+// import VsudSwitch from "../components/VsudSwitch.vue";
+// import VsudButton from "../components/VsudButton.vue";
+// const body = document.getElementsByTagName("body")[0];
+// // import { mapMutations } from "vuex";
+
+// export default {
+//   name: "SignIn",
+//   components: {
+//     Navbar,
+//     AppFooter,
+//     VsudInput,
+//     VsudSwitch,
+//     VsudButton,
+//   },
+//   created() {
+//     // this.toggleEveryDisplay();
+//     // this.toggleHideConfig();
+//     // body.classList.remove("bg-gray-100");
+//   },
+//   beforeUnmount() {
+//     // this.toggleEveryDisplay();
+//     // this.toggleHideConfig();
+//     // body.classList.add("bg-gray-100");
+//   },
+//   // methods: {
+//   //   ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+//   // },
+// };
+//
+// </script>
